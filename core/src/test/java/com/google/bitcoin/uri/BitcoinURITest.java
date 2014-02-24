@@ -22,6 +22,7 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.params.MainNetParams;
 import com.google.bitcoin.params.TestNet3Params;
+
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
@@ -39,36 +40,36 @@ public class BitcoinURITest {
         Address goodAddress = new Address(MainNetParams.get(), MAINNET_GOOD_ADDRESS);
         
         // simple example
-        assertEquals("bitcoin:" + MAINNET_GOOD_ADDRESS + "?amount=12.34&label=Hello&message=AMessage", BitcoinURI.convertToBitcoinURI(goodAddress, Utils.toNanoCoins("12.34"), "Hello", "AMessage"));
+        assertEquals("premine:" + MAINNET_GOOD_ADDRESS + "?amount=12.34&label=Hello&message=AMessage", BitcoinURI.convertToBitcoinURI(goodAddress, Utils.toNanoCoins("12.34"), "Hello", "AMessage"));
         
         // example with spaces, ampersand and plus
-        assertEquals("bitcoin:" + MAINNET_GOOD_ADDRESS + "?amount=12.34&label=Hello%20World&message=Mess%20%26%20age%20%2B%20hope", BitcoinURI.convertToBitcoinURI(goodAddress, Utils.toNanoCoins("12.34"), "Hello World", "Mess & age + hope"));
+        assertEquals("premine:" + MAINNET_GOOD_ADDRESS + "?amount=12.34&label=Hello%20World&message=Mess%20%26%20age%20%2B%20hope", BitcoinURI.convertToBitcoinURI(goodAddress, Utils.toNanoCoins("12.34"), "Hello World", "Mess & age + hope"));
 
         // no amount, label present, message present
-        assertEquals("bitcoin:" + MAINNET_GOOD_ADDRESS + "?label=Hello&message=glory", BitcoinURI.convertToBitcoinURI(goodAddress, null, "Hello", "glory"));
+        assertEquals("premine:" + MAINNET_GOOD_ADDRESS + "?label=Hello&message=glory", BitcoinURI.convertToBitcoinURI(goodAddress, null, "Hello", "glory"));
         
         // amount present, no label, message present
-        assertEquals("bitcoin:" + MAINNET_GOOD_ADDRESS + "?amount=0.1&message=glory", BitcoinURI.convertToBitcoinURI(goodAddress, Utils.toNanoCoins("0.1"), null, "glory"));
-        assertEquals("bitcoin:" + MAINNET_GOOD_ADDRESS + "?amount=0.1&message=glory", BitcoinURI.convertToBitcoinURI(goodAddress, Utils.toNanoCoins("0.1"), "", "glory"));
+        assertEquals("premine:" + MAINNET_GOOD_ADDRESS + "?amount=0.1&message=glory", BitcoinURI.convertToBitcoinURI(goodAddress, Utils.toNanoCoins("0.1"), null, "glory"));
+        assertEquals("premine:" + MAINNET_GOOD_ADDRESS + "?amount=0.1&message=glory", BitcoinURI.convertToBitcoinURI(goodAddress, Utils.toNanoCoins("0.1"), "", "glory"));
 
         // amount present, label present, no message
-        assertEquals("bitcoin:" + MAINNET_GOOD_ADDRESS + "?amount=12.34&label=Hello", BitcoinURI.convertToBitcoinURI(goodAddress, Utils.toNanoCoins("12.34"), "Hello", null));
-        assertEquals("bitcoin:" + MAINNET_GOOD_ADDRESS + "?amount=12.34&label=Hello", BitcoinURI.convertToBitcoinURI(goodAddress, Utils.toNanoCoins("12.34"), "Hello", ""));
+        assertEquals("premine:" + MAINNET_GOOD_ADDRESS + "?amount=12.34&label=Hello", BitcoinURI.convertToBitcoinURI(goodAddress, Utils.toNanoCoins("12.34"), "Hello", null));
+        assertEquals("premine:" + MAINNET_GOOD_ADDRESS + "?amount=12.34&label=Hello", BitcoinURI.convertToBitcoinURI(goodAddress, Utils.toNanoCoins("12.34"), "Hello", ""));
               
         // amount present, no label, no message
-        assertEquals("bitcoin:" + MAINNET_GOOD_ADDRESS + "?amount=1000", BitcoinURI.convertToBitcoinURI(goodAddress, Utils.toNanoCoins("1000"), null, null));
-        assertEquals("bitcoin:" + MAINNET_GOOD_ADDRESS + "?amount=1000", BitcoinURI.convertToBitcoinURI(goodAddress, Utils.toNanoCoins("1000"), "", ""));
+        assertEquals("premine:" + MAINNET_GOOD_ADDRESS + "?amount=1000", BitcoinURI.convertToBitcoinURI(goodAddress, Utils.toNanoCoins("1000"), null, null));
+        assertEquals("premine:" + MAINNET_GOOD_ADDRESS + "?amount=1000", BitcoinURI.convertToBitcoinURI(goodAddress, Utils.toNanoCoins("1000"), "", ""));
         
         // no amount, label present, no message
-        assertEquals("bitcoin:" + MAINNET_GOOD_ADDRESS + "?label=Hello", BitcoinURI.convertToBitcoinURI(goodAddress, null, "Hello", null));
+        assertEquals("premine:" + MAINNET_GOOD_ADDRESS + "?label=Hello", BitcoinURI.convertToBitcoinURI(goodAddress, null, "Hello", null));
         
         // no amount, no label, message present
-        assertEquals("bitcoin:" + MAINNET_GOOD_ADDRESS + "?message=Agatha", BitcoinURI.convertToBitcoinURI(goodAddress, null, null, "Agatha"));
-        assertEquals("bitcoin:" + MAINNET_GOOD_ADDRESS + "?message=Agatha", BitcoinURI.convertToBitcoinURI(goodAddress, null, "", "Agatha"));
+        assertEquals("premine:" + MAINNET_GOOD_ADDRESS + "?message=Agatha", BitcoinURI.convertToBitcoinURI(goodAddress, null, null, "Agatha"));
+        assertEquals("premine:" + MAINNET_GOOD_ADDRESS + "?message=Agatha", BitcoinURI.convertToBitcoinURI(goodAddress, null, "", "Agatha"));
       
         // no amount, no label, no message
-        assertEquals("bitcoin:" + MAINNET_GOOD_ADDRESS, BitcoinURI.convertToBitcoinURI(goodAddress, null, null, null));
-        assertEquals("bitcoin:" + MAINNET_GOOD_ADDRESS, BitcoinURI.convertToBitcoinURI(goodAddress, null, "", ""));
+        assertEquals("premine:" + MAINNET_GOOD_ADDRESS, BitcoinURI.convertToBitcoinURI(goodAddress, null, null, null));
+        assertEquals("premine:" + MAINNET_GOOD_ADDRESS, BitcoinURI.convertToBitcoinURI(goodAddress, null, "", ""));
     }
 
     @Test
@@ -393,7 +394,7 @@ public class BitcoinURITest {
     @Test
     public void brokenURIs() throws BitcoinURIParseException {
         // Check we can parse the incorrectly formatted URIs produced by blockchain.info and its iPhone app.
-        String str = "bitcoin://1KzTSfqjF2iKCduwz59nv2uqh1W2JsTxZH?amount=0.01000000";
+        String str = "premine://1KzTSfqjF2iKCduwz59nv2uqh1W2JsTxZH?amount=0.01000000";
         BitcoinURI uri = new BitcoinURI(str);
         assertEquals("1KzTSfqjF2iKCduwz59nv2uqh1W2JsTxZH", uri.getAddress().toString());
         assertEquals(Utils.toNanoCoins(0, 1), uri.getAmount());
@@ -420,7 +421,7 @@ public class BitcoinURITest {
     @Test
     public void testPaymentProtocolReq() throws Exception {
         // Non-backwards compatible form ...
-        BitcoinURI uri = new BitcoinURI(TestNet3Params.get(), "bitcoin:?r=https%3A%2F%2Fbitcoincore.org%2F%7Egavin%2Ff.php%3Fh%3Db0f02e7cea67f168e25ec9b9f9d584f9");
+        BitcoinURI uri = new BitcoinURI(TestNet3Params.get(), "premine:?r=https%3A%2F%2Fbitcoincore.org%2F%7Egavin%2Ff.php%3Fh%3Db0f02e7cea67f168e25ec9b9f9d584f9");
         assertEquals("https://bitcoincore.org/~gavin/f.php?h=b0f02e7cea67f168e25ec9b9f9d584f9", uri.getPaymentRequestUrl());
         assertNull(uri.getAddress());
     }

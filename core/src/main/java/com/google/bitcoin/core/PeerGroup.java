@@ -248,7 +248,8 @@ public class PeerGroup extends AbstractExecutionThreadService implements Transac
     private int lastBloomFilterElementCount;
 
     /** The default timeout between when a connection attempt begins and version message exchange completes */
-    public static final int DEFAULT_CONNECT_TIMEOUT_MILLIS = 5000;
+    // PMC
+    public static final int DEFAULT_CONNECT_TIMEOUT_MILLIS = 20000; //5000
     private volatile int vConnectTimeoutMillis = DEFAULT_CONNECT_TIMEOUT_MILLIS;
 
     /**
@@ -593,8 +594,6 @@ public class PeerGroup extends AbstractExecutionThreadService implements Transac
         } finally {
             lock.unlock();
         }
-        log.info("Peer discovery took {}msec and returned {} items",
-                System.currentTimeMillis() - start, addressSet.size());
     }
 
     @Override

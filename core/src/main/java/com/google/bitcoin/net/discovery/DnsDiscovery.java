@@ -16,6 +16,8 @@
 
 package com.google.bitcoin.net.discovery;
 
+import android.util.Log;
+
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;

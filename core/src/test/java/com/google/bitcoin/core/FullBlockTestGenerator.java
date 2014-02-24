@@ -1,6 +1,7 @@
 package com.google.bitcoin.core;
 
 import com.google.bitcoin.core.Transaction.SigHash;
+import com.google.bitcoin.params.MainNetParams;
 import com.google.bitcoin.script.Script;
 import com.google.bitcoin.script.ScriptBuilder;
 import com.google.common.base.Preconditions;
@@ -1623,7 +1624,8 @@ public class FullBlockTestGenerator {
         Integer height = blockToHeightMap.get(baseBlock.getHash());
         if (height != null)
             Preconditions.checkState(height == nextBlockHeight - 1);
-        BigInteger coinbaseValue = Utils.toNanoCoins(50, 0).shiftRight(nextBlockHeight / params.getSubsidyDecreaseBlockCount())
+        // PMC
+        BigInteger coinbaseValue = new Block(new MainNetParams()).getBlockInflation(nextBlockHeight) //Utils.toNanoCoins(50, 0).shiftRight(nextBlockHeight / params.getSubsidyDecreaseBlockCount())
                 .add((prevOut != null ? prevOut.value.subtract(BigInteger.ONE) : BigInteger.ZERO))
                 .add(additionalCoinbaseValue == null ? BigInteger.ZERO : additionalCoinbaseValue);
         Block block = baseBlock.createNextBlockWithCoinbase(coinbaseOutKeyPubKey, coinbaseValue);

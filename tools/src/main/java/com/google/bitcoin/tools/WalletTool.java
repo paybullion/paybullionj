@@ -475,7 +475,8 @@ public class WalletTool {
     }
 
     private static void sendPaymentRequest(String location, boolean verifyPki) {
-        if (location.startsWith("http") || location.startsWith("bitcoin")) {
+        // PMC
+        if (location.startsWith("http") || location.startsWith("premine")) {
             try {
                 ListenableFuture<PaymentSession> future;
                 if (location.startsWith("http")) {
@@ -495,7 +496,7 @@ public class WalletTool {
                 System.err.println("Error creating payment session " + e.getMessage());
                 System.exit(1);
             } catch (BitcoinURIParseException e) {
-                System.err.println("Invalid bitcoin uri: " + e.getMessage());
+                System.err.println("Invalid premine uri: " + e.getMessage());
                 System.exit(1);
             } catch (InterruptedException e) {
                 // Ignore.
@@ -693,8 +694,18 @@ public class WalletTool {
             String peersFlag = (String) options.valueOf("peers");
             String[] peerAddrs = peersFlag.split(",");
             for (String peer : peerAddrs) {
+                // PMC
+                // Allow specifying the port for each node
                 try {
-                    peers.addAddress(new PeerAddress(InetAddress.getByName(peer), params.getPort()));
+                    int port;
+                    if(peer.contains(":")) {
+                        String parts[] = peer.split(":");
+                        peer = parts[0];
+                        port = Integer.valueOf(parts[1]);
+                    } else {
+                        port =  params.getPort();
+                    }
+                    peers.addAddress(new PeerAddress(InetAddress.getByName(peer), port));
                 } catch (UnknownHostException e) {
                     System.err.println("Could not understand peer domain name/IP address: " + peer + ": " + e.getMessage());
                     System.exit(1);

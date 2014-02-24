@@ -36,7 +36,6 @@ import java.math.BigInteger;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
 import java.nio.channels.CancelledKeyException;
-import java.nio.channels.ClosedChannelException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;

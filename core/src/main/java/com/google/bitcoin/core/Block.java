@@ -21,10 +21,10 @@ import com.google.bitcoin.script.ScriptBuilder;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nullable;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 import static com.google.bitcoin.core.Utils.doubleDigest;
 import static com.google.bitcoin.core.Utils.doubleDigestTwoBuffers;
@@ -158,16 +160,23 @@ public class Block extends Message {
 
 
     /**
-     * <p>A utility method that calculates how much new Bitcoin would be created by the block at the given height.
-     * The inflation of Bitcoin is predictable and drops roughly every 4 years (210,000 blocks). At the dawn of
-     * the system it was 50 coins per block, in late 2012 it went to 25 coins per block, and so on. The size of
-     * a coinbase transaction is inflation plus fees.</p>
-     *
-     * <p>The half-life is controlled by {@link com.google.bitcoin.core.NetworkParameters#getSubsidyDecreaseBlockCount()}.
-     * </p>
+     * <p>A utility method that calculates how much new Preminecoin would be created by the block at the given height.
+     * The size of a coinbase transaction is inflation plus fees.</p>
      */
     public BigInteger getBlockInflation(int height) {
-        return Utils.toNanoCoins(50, 0).shiftRight(height / params.getSubsidyDecreaseBlockCount());
+        //return Utils.toNanoCoins(50, 0).shiftRight(height / params.getSubsidyDecreaseBlockCount());
+        // PMC
+        BigInteger nSubsidy;
+        //Axe subsidy alltogether after block 15999 to prevent bad maths
+        if(height >= 15999) {
+            nSubsidy = new BigInteger("0");
+        } else {
+            // Subsidy is cut in half every 250 blocks
+            nSubsidy = Utils.COIN.multiply(new BigInteger("1000", 10));
+            nSubsidy.shiftRight (height / 250);
+        }
+
+        return nSubsidy;
     }
 
     private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {
