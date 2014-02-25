@@ -70,6 +70,7 @@ import static com.google.common.base.Preconditions.checkState;
  */
 public class PeerGroup extends AbstractExecutionThreadService implements TransactionBroadcaster {
     private static final int DEFAULT_CONNECTIONS = 4;
+    private static final int MIN_CONNECTIONS = 2;
 
     private static final Logger log = LoggerFactory.getLogger(PeerGroup.class);
     protected final ReentrantLock lock = Threading.lock("peergroup");
@@ -1247,18 +1248,14 @@ public class PeerGroup extends AbstractExecutionThreadService implements Transac
      * Returns the number of connections that are required before transactions will be broadcast. If there aren't
      * enough, {@link PeerGroup#broadcastTransaction(Transaction)} will wait until the minimum number is reached so
      * propagation across the network can be observed. If no value has been set using
-     * {@link PeerGroup#setMinBroadcastConnections(int)} a default of half of whatever
-     * {@link com.google.bitcoin.core.PeerGroup#getMaxConnections()} returns is used.
+     * {@link PeerGroup#setMinBroadcastConnections(int)} a default MIN_CONNECTIONS returns is used.
      */
     public int getMinBroadcastConnections() {
         lock.lock();
         try {
             if (minBroadcastConnections == 0) {
-                int max = getMaxConnections();
-                if (max <= 1)
-                    return max;
-                else
-                    return (int) Math.round(getMaxConnections() / 2.0);
+                // PMC
+                return MIN_CONNECTIONS;
             }
             return minBroadcastConnections;
         } finally {
