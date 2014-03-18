@@ -346,4 +346,10 @@ public abstract class NetworkParameters implements Serializable {
     public byte[] getAlertSigningKey() {
         return alertSigningKey;
     }
+
+    /**
+     *
+     * @return true if this private key (WIF) is valid
+     */
+    public abstract boolean isPrivateKeyValid(String privateKey);
 }

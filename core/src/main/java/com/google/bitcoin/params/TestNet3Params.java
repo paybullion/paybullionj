@@ -65,4 +65,10 @@ public class TestNet3Params extends NetworkParameters {
     public String getPaymentProtocolId() {
         return PAYMENT_PROTOCOL_ID_TESTNET;
     }
+
+    @Override
+    public boolean isPrivateKeyValid(String privateKey) {
+        // TODO
+        return false;
+    }
 }

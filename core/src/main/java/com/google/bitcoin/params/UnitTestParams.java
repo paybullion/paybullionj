@@ -56,4 +56,10 @@ public class UnitTestParams extends NetworkParameters {
     public String getPaymentProtocolId() {
         return null;
     }
+
+    @Override
+    public boolean isPrivateKeyValid(String privateKey) {
+        // TODO
+        return true;
+    }
 }

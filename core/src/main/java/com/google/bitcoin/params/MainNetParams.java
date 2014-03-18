@@ -88,4 +88,12 @@ public class MainNetParams extends NetworkParameters {
     public String getPaymentProtocolId() {
         return PAYMENT_PROTOCOL_ID_MAINNET;
     }
+
+    @Override
+    public boolean isPrivateKeyValid(String privateKey) {
+        if(null==privateKey || 0==privateKey.trim().length()) {
+            return false;
+        }
+        return (privateKey.startsWith("5") && privateKey.length()==51);
+    }
 }
