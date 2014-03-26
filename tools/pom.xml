@@ -71,7 +71,7 @@
   <dependencies>
     <dependency>
       <groupId>com.google</groupId>
-      <artifactId>preminecoinj</artifactId>
+      <artifactId>paybullionj</artifactId>
       <version>0.11</version>
     </dependency>
     <dependency>
