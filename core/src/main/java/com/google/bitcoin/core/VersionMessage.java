@@ -74,11 +74,11 @@ public class VersionMessage extends Message {
     public boolean relayTxesBeforeFilter;
 
     /** The version of this library release, as a string. */
-    // PMC
+    // PBC
     public static final String BITCOINJ_VERSION = "0.8.8"; //"0.12-SNAPSHOT";
     /** The value that is prepended to the subVer field of this application. */
-    // PMC
-    public static final String LIBRARY_SUBVER = "/preminecoinj:" + BITCOINJ_VERSION + "/"; //"/BitCoinJ:" + BITCOINJ_VERSION + "/";
+    // PBC
+    public static final String LIBRARY_SUBVER = "/paybullionj:" + BITCOINJ_VERSION + "/"; //"/BitCoinJ:" + BITCOINJ_VERSION + "/";
 
     public VersionMessage(NetworkParameters params, byte[] msg) throws ProtocolException {
         super(params, msg, 0);

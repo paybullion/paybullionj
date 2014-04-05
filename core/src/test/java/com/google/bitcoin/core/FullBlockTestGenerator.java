@@ -1624,7 +1624,7 @@ public class FullBlockTestGenerator {
         Integer height = blockToHeightMap.get(baseBlock.getHash());
         if (height != null)
             Preconditions.checkState(height == nextBlockHeight - 1);
-        // PMC
+        // PBC
         BigInteger coinbaseValue = new Block(new MainNetParams()).getBlockInflation(nextBlockHeight) //Utils.toNanoCoins(50, 0).shiftRight(nextBlockHeight / params.getSubsidyDecreaseBlockCount())
                 .add((prevOut != null ? prevOut.value.subtract(BigInteger.ONE) : BigInteger.ZERO))
                 .add(additionalCoinbaseValue == null ? BigInteger.ZERO : additionalCoinbaseValue);

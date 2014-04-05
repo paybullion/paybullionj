@@ -123,7 +123,7 @@ public class Address extends VersionedChecksummedBytes {
     @Nullable
     public NetworkParameters getParameters() {
         // TODO: There should be a more generic way to get all supported networks.
-        // PMC
+        // PBC
         NetworkParameters[] networks = { MainNetParams.get() };
         for (NetworkParameters params : networks) {
             if (isAcceptableVersion(params, version)) {

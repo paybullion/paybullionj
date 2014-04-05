@@ -32,48 +32,39 @@ public class MainNetParams extends NetworkParameters {
         targetTimespan = TARGET_TIMESPAN;
         proofOfWorkLimit = Utils.decodeCompactBits(0x1d00ffffL);
         dumpedPrivateKeyHeader = 128;
-        addressHeader = 0;
+        addressHeader = 55;
         p2shHeader = 5;
         acceptableAddressCodes = new int[] { addressHeader, p2shHeader };
-        // PMC
-        port = 9336;
-        packetMagic = 0x950364d1;
-        // PMC genesis block: http://blockchain.premineco.in/block/1e11cadfc3d9c24fe28b330395f97428af97199c404bac35959fdd7ff7588adf
+        // PBC
+        port = 8430;
+        // PBC
+        packetMagic = 0xf50468d2;
+        // PBC
         genesisBlock.setDifficultyTarget(0x1d00ffffL);
-        // PMC
-        genesisBlock.setTime(1390363105);
-        // PMC
-        genesisBlock.setNonce(2083236893);
+        // PBC
+        genesisBlock.setTime(1396571816);
+        // PBC
+        genesisBlock.setNonce(305735);
 
         id = ID_MAINNET;
 
         spendableCoinbaseDepth = 100;
         String genesisHash = genesisBlock.getHashAsString();
-        // PMC
-        checkState(genesisHash.equals("1e11cadfc3d9c24fe28b330395f97428af97199c404bac35959fdd7ff7588adf"), //000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f
+        // PBC
+        checkState(genesisHash.equals("000005e51dad3a29ac47b03745a9f5af0d8d8f543d6bc119099c5f12cd11e444"), //000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f
                 genesisHash);
 
         // This contains (at a minimum) the blocks which are not BIP30 compliant. BIP30 changed how duplicate
         // transactions are handled. Duplicated transactions could occur in the case where a coinbase had the same
         // extraNonce and the same outputs but appeared at different heights, and greatly complicated re-org handling.
         // Having these here simplifies block connection logic considerably.
-        // PMC
+        // PBC
         // Removed checkpoints
 
-        // PMC
+        // PBC
         dnsSeeds = new String[] {
-                "seed.preminer.com", //redundant info
-                "65.167.153.125", //pmc1
-                "188.226.182.38", //node.preminer.com
-                "65.167.153.115", //pmc2
-                "faucet.premineco.in",
-                "blockchain.premineco.in",
-                // Extra nodes
-                "24.249.152.169",
-                "24.84.244.254",
-                "207.68.214.214",
-                "74.47.64.139",
-                "95.108.78.144"
+                "67.222.152.97",
+                "67.222.152.95"
         };
     }
 

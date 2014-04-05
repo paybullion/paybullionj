@@ -249,7 +249,7 @@ public class PeerGroup extends AbstractExecutionThreadService implements Transac
     private int lastBloomFilterElementCount;
 
     /** The default timeout between when a connection attempt begins and version message exchange completes */
-    // PMC
+    // PBC
     public static final int DEFAULT_CONNECT_TIMEOUT_MILLIS = 20000; //5000
     private volatile int vConnectTimeoutMillis = DEFAULT_CONNECT_TIMEOUT_MILLIS;
 
@@ -1254,7 +1254,7 @@ public class PeerGroup extends AbstractExecutionThreadService implements Transac
         lock.lock();
         try {
             if (minBroadcastConnections == 0) {
-                // PMC
+                // PBC
                 return MIN_CONNECTIONS;
             }
             return minBroadcastConnections;

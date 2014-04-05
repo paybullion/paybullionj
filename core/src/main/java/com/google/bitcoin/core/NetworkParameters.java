@@ -55,11 +55,11 @@ public abstract class NetworkParameters implements Serializable {
     public static final byte[] SATOSHI_KEY = Hex.decode("04fc9702847840aaf195de8442ebecedf5b095cdbb9bc716bda9110971b28a49e0ead8564ff0db22209e0374782c093bb899692d524e9d6a6956e7c5ecbcd68284");
 
     /** The string returned by getId() for the main, production network where people trade things. */
-    public static final String ID_MAINNET = "in.premineco.production";
+    public static final String ID_MAINNET = "com.paybullion.production";
     /** The string returned by getId() for the testnet. */
-    public static final String ID_TESTNET = "in.premineco.test";
+    public static final String ID_TESTNET = "com.paybullion.test";
     /** Unit test network. */
-    public static final String ID_UNITTESTNET = "in.premineco.unittest";
+    public static final String ID_UNITTESTNET = "com.paybullion.unittest";
 
     /** The string used by the payment protocol to represent the main net. */
     public static final String PAYMENT_PROTOCOL_ID_MAINNET = "main";
@@ -92,7 +92,7 @@ public abstract class NetworkParameters implements Serializable {
      */
     protected int spendableCoinbaseDepth;
 
-    // PMC
+    // PBC
     // Removed subsidyDecreaseBlockCount
     
     protected int[] acceptableAddressCodes;
@@ -110,31 +110,34 @@ public abstract class NetworkParameters implements Serializable {
         try {
             // A script containing the difficulty bits and the following message:
             //
-            //   "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks"
+            //   "PayBullion Genesis Block"
             // PMC
+            // TODO
             byte[] bytes = Hex.decode
                     ("05d1640395000104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73");
 
             transaction.addInput(new TransactionInput(n, transaction, bytes));
             ByteArrayOutputStream scriptPubKeyBytes = new ByteArrayOutputStream();
-            // PMC
+            // PBC
             Script.writeBytes(scriptPubKeyBytes, Hex.decode
-                    ("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f"));
+                    ("04478afdb05e5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f"));
             scriptPubKeyBytes.write(ScriptOpCodes.OP_CHECKSIG);
-            // PMC
-            transaction.addOutput(new TransactionOutput(n, transaction, new BigInteger("1"), scriptPubKeyBytes.toByteArray()));
+            // PBC
+            transaction.addOutput(new TransactionOutput(n, transaction, new BigInteger("10000"), scriptPubKeyBytes.toByteArray()));
         } catch (Exception e) {
             // Cannot happen.
            throw new RuntimeException(e);
         }
+        // TODO
+        transaction.setHash(new Sha256Hash("0bbbff0be5d80b483a2ad23777a74e9fe209a6a40e09bf3a3e10b731f235dbb3"));
         genesisBlock.addTransaction(transaction);
 
         return genesisBlock;
     }
 
-    // PMC
-    public static final int TARGET_TIMESPAN = 1 * 24 * 60 * 60; //14 * 24 * 60 * 60;  // 2 weeks per difficulty cycle, on average.
-    public static final int TARGET_SPACING = 10 * 60;  // 10 minutes per block.
+    // PBC
+    public static final int TARGET_TIMESPAN = 60 * 40; // 40 min
+    public static final int TARGET_SPACING = 60;  // 1 minute
     public static final int INTERVAL = TARGET_TIMESPAN / TARGET_SPACING;
     
     /**
@@ -147,8 +150,8 @@ public abstract class NetworkParameters implements Serializable {
     /**
      * The maximum money to be generated
      */
-    // PMC
-    public static final BigInteger MAX_MONEY = new BigInteger("500000", 10).multiply(COIN); //21000000
+    // PBC
+    public static final BigInteger MAX_MONEY = new BigInteger("22000000", 10).multiply(COIN);
 
     /** Alias for TestNet3Params.get(), use that instead. */
     @Deprecated

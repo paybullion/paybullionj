@@ -860,7 +860,7 @@ public abstract class AbstractBlockChain {
         BigInteger mask = BigInteger.valueOf(0xFFFFFFL).shiftLeft(accuracyBytes * 8);
         newDifficulty = newDifficulty.and(mask);
 
-        // PMC
+        // PBC
         //if (newDifficulty.compareTo(receivedDifficulty) != 0)
         //    throw new VerificationException("Network provided difficulty bits do not match what was calculated: " +
         //            receivedDifficulty.toString(16) + " vs " + newDifficulty.toString(16));

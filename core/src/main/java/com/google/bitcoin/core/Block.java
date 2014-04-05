@@ -160,20 +160,20 @@ public class Block extends Message {
 
 
     /**
-     * <p>A utility method that calculates how much new Preminecoin would be created by the block at the given height.
+     * <p>A utility method that calculates how much new PayBullion would be created by the block at the given height.
      * The size of a coinbase transaction is inflation plus fees.</p>
      */
     public BigInteger getBlockInflation(int height) {
         //return Utils.toNanoCoins(50, 0).shiftRight(height / params.getSubsidyDecreaseBlockCount());
-        // PMC
+        // PBC
         BigInteger nSubsidy;
-        //Axe subsidy alltogether after block 15999 to prevent bad maths
-        if(height >= 15999) {
+        //Axe subsidy altogether after block 2200
+        // PBC
+        if(height > 2200) {
             nSubsidy = new BigInteger("0");
         } else {
-            // Subsidy is cut in half every 250 blocks
-            nSubsidy = Utils.COIN.multiply(new BigInteger("1000", 10));
-            nSubsidy.shiftRight (height / 250);
+            // Subsidy is cut in half every 1100 blocks
+            nSubsidy = Utils.COIN.multiply(new BigInteger("10000", 10));
         }
 
         return nSubsidy;

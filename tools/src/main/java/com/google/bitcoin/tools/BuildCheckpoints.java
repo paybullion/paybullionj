@@ -37,7 +37,9 @@ public class BuildCheckpoints {
         final BlockStore store = new MemoryBlockStore(params);
         final BlockChain chain = new BlockChain(params, store);
         final PeerGroup peerGroup = new PeerGroup(params, chain);
+
         peerGroup.addAddress(InetAddress.getLocalHost());
+        //peerGroup.addAddress(InetAddress.getByName("67.222.152.95"));
 
         long now = new Date().getTime() / 1000;
         peerGroup.setFastCatchupTimeSecs(now);
@@ -87,8 +89,7 @@ public class BuildCheckpoints {
         store.close();
 
         // Sanity check the created file.
-        // PMC
-        // TODO
+        // PBC
         /*
         CheckpointManager manager = new CheckpointManager(params, new FileInputStream("checkpoints"));
         checkState(manager.numCheckpoints() == checkpoints.size());

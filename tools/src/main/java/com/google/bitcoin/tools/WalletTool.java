@@ -475,8 +475,8 @@ public class WalletTool {
     }
 
     private static void sendPaymentRequest(String location, boolean verifyPki) {
-        // PMC
-        if (location.startsWith("http") || location.startsWith("premine")) {
+        // PBC
+        if (location.startsWith("http") || location.startsWith("paybullion")) {
             try {
                 ListenableFuture<PaymentSession> future;
                 if (location.startsWith("http")) {
@@ -496,7 +496,7 @@ public class WalletTool {
                 System.err.println("Error creating payment session " + e.getMessage());
                 System.exit(1);
             } catch (BitcoinURIParseException e) {
-                System.err.println("Invalid premine uri: " + e.getMessage());
+                System.err.println("Invalid PayBullion uri: " + e.getMessage());
                 System.exit(1);
             } catch (InterruptedException e) {
                 // Ignore.
@@ -694,7 +694,7 @@ public class WalletTool {
             String peersFlag = (String) options.valueOf("peers");
             String[] peerAddrs = peersFlag.split(",");
             for (String peer : peerAddrs) {
-                // PMC
+                // PBC
                 // Allow specifying the port for each node
                 try {
                     int port;
