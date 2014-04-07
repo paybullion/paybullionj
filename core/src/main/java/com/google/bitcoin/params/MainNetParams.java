@@ -63,8 +63,18 @@ public class MainNetParams extends NetworkParameters {
 
         // PBC
         dnsSeeds = new String[] {
-                "67.222.152.97",
-                "67.222.152.95"
+                // DNS
+                "node1.paybullion.com",
+                "node2.paybullion.com",
+                "node3.paybullion.com",
+                "node4.paybullion.com",
+                "node5.paybullion.com",
+                // Backup IP
+                "107.170.121.182",
+                "162.243.200.150",
+                "128.199.193.235",
+                "188.226.204.234",
+                "107.170.212.76"
         };
     }
 
