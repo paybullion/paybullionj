@@ -111,10 +111,8 @@ public abstract class NetworkParameters implements Serializable {
             // A script containing the difficulty bits and the following message:
             //
             //   "PayBullion Genesis Block"
-            // PMC
-            // TODO
-            byte[] bytes = Hex.decode
-                    ("05d1640395000104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73");
+            // PBC
+            byte[] bytes = "PayBullion Genesis Block".getBytes();
 
             transaction.addInput(new TransactionInput(n, transaction, bytes));
             ByteArrayOutputStream scriptPubKeyBytes = new ByteArrayOutputStream();
@@ -128,7 +126,6 @@ public abstract class NetworkParameters implements Serializable {
             // Cannot happen.
            throw new RuntimeException(e);
         }
-        // TODO
         transaction.setHash(new Sha256Hash("0bbbff0be5d80b483a2ad23777a74e9fe209a6a40e09bf3a3e10b731f235dbb3"));
         genesisBlock.addTransaction(transaction);
 
